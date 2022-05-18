@@ -1,3 +1,6 @@
 # Preface {.unnumbered}
 
 This is the notes I have been constitently taking while reading the book *Signal Detection for Good Correlation* @golomb_gong_2005
+
+## Things worthy noticing {.unnumbered}
+@def-zech-logrithm, 

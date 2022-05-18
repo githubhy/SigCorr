@@ -8,6 +8,7 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
+    - seq.qmd
     - summary.qmd
     - references.qmd
 

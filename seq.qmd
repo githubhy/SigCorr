@@ -1,0 +1,55 @@
+# Sequences
+
+## 3GPP definition
+
+not good
+
+
+
+```{dot}
+digraph G {
+    graph [rankdir = LR];
+
+    node[shape=record];
+    Bar[label="{ \"Bar\"|{<p1>pin 1|<p2>     2|<p3>     3|<p4>     4|<p5>     5} }"];
+    Foo[label="{ {<data0>data0|<data1>data1|<data2>data2|<data3>data3|<data4>data4}|\"Foo\" |{<out0>out0|<out1>out1|<out2>out2|<GND>gnd|<ex0>ex0|<hi>hi|<lo>lo} }"];
+
+    Bar:p1 -> Foo:data0;
+    Bar:p2 -> Foo:data1;
+    Bar:p3 -> Foo:data2;
+    Bar:p4 -> Foo:data3;
+    Bar:p5 -> Foo:data4;
+
+    Gate[label="{ {<a>a|<b>b}|OR|{<ab>a\|b} }"];
+
+    Foo:hi -> Gate:a;
+    Foo:lo -> Gate:b;
+}
+```
+
+
+```{dot}
+digraph structs {
+node [shape=record];
+  struct1 [shape=record,label="<f0> left|<f1> mid\ dle|<f2> right"];
+  struct2 [shape=record,label="<f0> one|<f1> two"];
+  struct3 [shape=record,label="hello\nworld |{ b |{c|<here> d|e}| f}| g | h"];
+  struct1 -> struct2;
+  struct1 -> struct3;
+}
+```
+
+```{dot}
+digraph G {
+//| label: fig-reg
+//| fig-cap: "Registers"
+//| fig-reponsive: true
+//| fig-width: 10
+//| echo: true
+
+  graph [rankdir = TB];
+
+  node [shape = record];
+    reg [label = <a<sub>0</sub> | a<sup>1</sup> | a^2^>]
+}
+```
