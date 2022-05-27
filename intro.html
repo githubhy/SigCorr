@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.464">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Signal Correlation - 1&nbsp; Fundamentals</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script><script src="site_libs/quarto-nav/headroom.min.js"></script><script src="site_libs/clipboard/clipboard.min.js"></script><script src="site_libs/quarto-search/autocomplete.umd.js"></script><script src="site_libs/quarto-search/fuse.min.js"></script><script src="site_libs/quarto-search/quarto-search.js"></script><meta name="quarto:offset" content="./"><link href="/seq.html" rel="next"><link href="/index.html" rel="prev"><script src="site_libs/quarto-html/quarto.js"></script><script src="site_libs/quarto-html/popper.min.js"></script><script src="site_libs/quarto-html/tippy.umd.min.js"></script><script src="site_libs/quarto-html/anchor.min.js"></script><link href="site_libs/quarto-html/tippy.css" rel="stylesheet"><link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><script src="site_libs/bootstrap/bootstrap.min.js"></script><link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet"><link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet"></head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Fundamentals</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Signal Correlation</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Fundamentals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./seq.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sequences</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#definitions" id="toc-definitions" class="nav-link active" data-scroll-target="#definitions"> <span class="header-section-number">1.1</span> Definitions</a></li>
+  <li><a href="#finite-field-properties" id="toc-finite-field-properties" class="nav-link" data-scroll-target="#finite-field-properties"> <span class="header-section-number">1.2</span> Finite Field Properties</a>
+  <ul class="collapse">
+  <li><a href="#the-polynomial-xq---x" id="toc-the-polynomial-xq---x" class="nav-link" data-scroll-target="#the-polynomial-xq---x"> <span class="header-section-number">1.2.1</span> The polynomial <span class="math inline">\(x^q - x\)</span></a></li>
+  <li><a href="#multiplicative-group" id="toc-multiplicative-group" class="nav-link" data-scroll-target="#multiplicative-group"> <span class="header-section-number">1.2.2</span> Multiplicative group</a></li>
+  <li><a href="#characteristic" id="toc-characteristic" class="nav-link" data-scroll-target="#characteristic"> <span class="header-section-number">1.2.3</span> Characteristic</a></li>
+  <li><a href="#fermats-little-theorem-1" id="toc-fermats-little-theorem-1" class="nav-link" data-scroll-target="#fermats-little-theorem-1"> <span class="header-section-number">1.2.4</span> Fermat’s little theorem</a></li>
+  <li><a href="#finite-field-extension" id="toc-finite-field-extension" class="nav-link" data-scroll-target="#finite-field-extension"> <span class="header-section-number">1.2.5</span> Finite field extension</a></li>
+  <li><a href="#finite-vector-space" id="toc-finite-vector-space" class="nav-link" data-scroll-target="#finite-vector-space"> <span class="header-section-number">1.2.6</span> Finite vector space</a></li>
+  <li><a href="#ftimes-is-cyclic" id="toc-ftimes-is-cyclic" class="nav-link" data-scroll-target="#ftimes-is-cyclic"> <span class="header-section-number">1.2.7</span> <span class="math inline">\(F^\times\)</span> is cyclic</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Fundamentals</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>For the authoring reference</p>
+<ul>
+<li><a href="https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs">Cross-reference</a></li>
+<li><a href="https://www.overleaf.com/learn/latex/Using_colours_in_LaTeX#Named_colours_provided_by_the_xcolor_package">Color</a></li>
+</ul>
+<section id="definitions" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="definitions"><span class="header-section-number">1.1</span> Definitions</h2>
+<div id="def-group" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.1 (Group) </strong></span>A set <span class="math inline">\(G\)</span>, one operators <span class="math inline">\(\cdot\)</span> form <span class="math inline">\((G,\cdot)\)</span> such that</p>
+<ul>
+<li><p><em>Associativity</em>: <span class="math inline">\(\forall a,b,c \in A\)</span></p>
+<p><span class="math display">\[(a \cdot b) \cdot c = a \cdot (b \cdot c)\]</span></p></li>
+<li><p><em>Identity element</em>: <span class="math inline">\(\forall a \in A, \exists ! e \in A\)</span></p>
+<p><span class="math display">\[e \cdot a = a \cdot e\]</span></p></li>
+<li><p><em>Inverse element</em>: <span class="math inline">\(\forall a \in A, \exists ! b \in A\)</span></p>
+<p><span class="math display">\[a \cdot b = b \cdot a = e\]</span></p></li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(\exists !\)</span> is the <a href="#https://en.wikipedia.org/wiki/Uniqueness_quantification">uniqueness existential quantification</a>.</p>
+</div>
+</div>
+</div>
+<div id="def-group-order" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.2 (Group order) </strong></span>The <strong>order</strong>of a finite group is the number of its elements.</p>
+<p>The <em>order</em> of group G is denoted by <span class="math inline">\(ord(G)\)</span> or <span class="math inline">\(|G|\)</span>.</p>
+</div>
+<div id="def-group-element-order" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.3 (Element order (Period, or Period length)) </strong></span>The <em>order</em> (or <strong>period length</strong> or <strong>period</strong>) of an element of a finite group <span class="math inline">\(G\)</span> is the <em>order</em> of the subgroup generated by the element.</p>
+<p><span class="math inline">\(\forall a \in G\)</span>, the generated group (strictly speaking, subgroup) is denoted by <span class="math inline">\(\langle a \rangle\)</span>.</p>
+<p>If <span class="math inline">\(a \in G\)</span> and the generated group is <span class="math inline">\((\)</span>a <span class="math inline">\(,\cdot)\)</span>,</p>
+<p><span class="math display">\[\langle a \rangle = \{a^k:k \in \mathbb{Z}\}\]</span></p>
+<p>The <em>order</em> of element <span class="math inline">\(a\)</span> is denoted by <span class="math inline">\(ord(a)\)</span> or <span class="math inline">\(|a|\)</span> for symplicity. It is actually</p>
+<p><span class="math display">\[ord(a) = ord(\langle a \rangle)\]</span></p>
+<p><span class="math inline">\(\forall n \in \mathbb{Z}, a \in G\)</span> and the identity <span class="math inline">\(e\)</span>,</p>
+<p><span class="math display">\[a^n = e \iff ord(a) \mid n\]</span></p>
+</div>
+<div id="thm-lagrange" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1.1 </strong></span>For any finite group <span class="math inline">\(G\)</span>, the order (number of elements) of every subgroup of <span class="math inline">\(G\)</span> divides the order of <span class="math inline">\(G\)</span>.</p>
+<p>Formally, if <span class="math inline">\(H\)</span> is a subgroup of <span class="math inline">\(G\)</span>,</p>
+<p><span class="math display">\[ |G| = [G:H]\cdot|H|\]</span></p>
+<p>where <span class="math inline">\([G:H]\)</span> is the <a href="https://en.wikipedia.org/wiki/Index_of_a_subgroup">index</a>.</p>
+</div>
+<div id="thm-fermat-little" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1.2 (Fermat’s Little Theorem) </strong></span>If <span class="math inline">\(p\)</span> is a prime number, <span class="math inline">\(\forall x \in \mathbb{Z}\)</span></p>
+<p><span class="math display">\[x^p \equiv x \pmod p\]</span></p>
+<p>or equivalently</p>
+<p><span class="math display">\[x^{p-1} \equiv 1 \pmod p\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Assuming <span class="math inline">\(p\)</span> is a prime number, the set <span class="math inline">\(G = \{1,2,\dots,p-1\}\)</span> forms a finite group (<a href="#def-group">Definition&nbsp;<span>1.1</span></a>) w.r.t <span class="math inline">\(\cdot \pmod p\)</span>. And <span class="math inline">\(ord(G) = p - 1\)</span>.</p>
+<p>Take <span class="math inline">\(a \in G\)</span>, and let <span class="math inline">\(k = ord(a)\)</span>, then <span class="math inline">\((G' = \{1,a,a^2,\dots,a^{k-1}\}, \cdot \pmod p)\)</span> is a subgroup of G. And <span class="math inline">\(ord(G) = ord(a) = k\)</span>.</p>
+<p>By Lagrange’s theorem (<a href="#thm-lagrange">Theorem&nbsp;<span>1.1</span></a>), <span class="math inline">\(k \mid ord(G)\)</span> or <span class="math inline">\(k \mid (p - 1)\)</span>. So <span class="math inline">\(\exists m \in \mathbb{N}_\neq 0, p - 1 = km\)</span></p>
+<p><span class="math display">\[
+a^{p-1} = a^{km} \mathop{=}^{\text{Associativity}} (a^k)^m \mathop{=}^{G'} 1^m = 1
+\]</span></p>
+<p>Fore more details, such as to prove that every element of <span class="math inline">\(G\)</span> is invertible, see <a href="https://en.wikipedia.org/wiki/Proofs_of_Fermat%27s_little_theorem#Proofs_using_group_theory">proofs using group theory</a></p>
+</div>
+<div id="def-euler-totient-func" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.4 (Euler’s totient function) </strong></span>Euler’s totient function counts the positive integers up to a given integer <span class="math inline">\(n\)</span> that are relatively prime to <span class="math inline">\(n\)</span>. It is written as as <span class="math inline">\(\varphi(n)\)</span>.</p>
+<ul>
+<li>The number of integers k in the range <span class="math inline">\(1 ≤ k ≤ n\)</span> for which the greatest common divisor <span class="math inline">\(\text{gcd}(n,k)\)</span> is equal to 1.</li>
+</ul>
+<div class="quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-euler-phi-1000" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="images/euler-phi-1000.png" class="img-fluid figure-img" data-ref-parent="fig-euler-phi"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">(a) First 1000 values</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-euler-phi-100" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="images/euler-phi-100.png" class="img-fluid figure-img" data-ref-parent="fig-euler-phi"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">(b) First 100 values</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Figure 1.1: Euler’s totient funtion values</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div id="def-abelian-group" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.5 (Abelian group (Commutative group)) </strong></span>A set <span class="math inline">\(A\)</span>, one operators <span class="math inline">\(\cdot\)</span> form <span class="math inline">\((A,\cdot)\)</span> such that</p>
+<ul>
+<li><p><em>Associativity</em>: <span class="math inline">\(\forall a,b,c \in A\)</span></p>
+<p><span class="math display">\[(a \cdot b) \cdot c = a \cdot (b \cdot c)\]</span></p></li>
+<li><p><em>Identity element</em>: <span class="math inline">\(\forall a \in A, \exists e \in A\)</span></p>
+<p><span class="math display">\[e \cdot a = a \cdot e\]</span></p></li>
+<li><p><em>Inverse element</em>: <span class="math inline">\(\forall a \in A, \exists b \in A\)</span></p>
+<p><span class="math display">\[a \cdot b = b \cdot a = e\]</span></p></li>
+<li><p><em>Commutativity</em>: <span class="math inline">\(\forall a,b \in A\)</span></p>
+<p><span class="math display">\[a \cdot b = b \cdot a\]</span></p></li>
+</ul>
+</div>
+<div id="def-ring" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.6 (Ring) </strong></span>Rings are algebraic structures that generalize fields such that</p>
+<ul>
+<li>Multiplication needs <em>not</em> to be <em>commutative</em></li>
+<li><em>Multiplicative inverses</em> need <em>not</em> exist.</li>
+</ul>
+<p>Formally, a set <span class="math inline">\(R\)</span>, two operators addtion <span class="math inline">\(+\)</span> and multiplication <span class="math inline">\(\cdot\)</span> forms <span class="math inline">\((R,+,\cdot)\)</span> such that</p>
+<ul>
+<li><p>R is an <em>Abelian group</em> (<a href="#def-abelian-group">Definition&nbsp;<span>1.5</span></a>) w.r.t <span class="math inline">\(+\)</span>.</p></li>
+<li><p><em>Associativity</em>: <span class="math inline">\(\forall a,b,c \in R\)</span></p>
+<p><span class="math display">\[(a \cdot b) \cdot c = a \cdot (b \cdot c)\]</span></p></li>
+<li><p><em>Distributivity</em>: $<span class="math inline">\(a,b,c \in R\)</span></p>
+<p><span class="math display">\[a \cdot (b + c) = (a \cdot b) + (a \cdot c), and (a + b) \cdot c = (a \cdot c) + (b \cdot c)\]</span></p></li>
+</ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that the operator <span class="math inline">\(\cdot\)</span> in <a href="#def-abelian-group">Definition&nbsp;<span>1.5</span></a> and <a href="#def-ring">Definition&nbsp;<span>1.6</span></a> are not relevant.</p>
+</div>
+</div>
+</div>
+<div id="def-ring-char" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.7 (Ring Characteristic) </strong></span>Two versions:</p>
+<ol type="1">
+<li><p>The smallest number of times one must use ring <span class="math inline">\(R\)</span>’s multiplicative identity (1) in a sum to get the additive identity (0), that is</p>
+<p><span class="math display">\[char(R) = \mathop{\arg min}_n\{\underbrace{1+\cdots +1}_n = 0\}\]</span></p>
+<p>if <span class="math inline">\(n\)</span> do not exists, <span class="math inline">\(n = 0\)</span>.</p></li>
+<li><p>The smallest number of the exponent of ring <span class="math inline">\(R\)</span>’s addictive group, that is, <span class="math inline">\(\forall a \in G\)</span>,</p>
+<p><span class="math display">\[char(R) = \mathop{\arg min}_n\{\underbrace{a+\cdots +a}_n = 0\}\]</span></p></li>
+</ol>
+</div>
+<div id="def-field" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.8 (Field) </strong></span>A field consists of</p>
+<ul>
+<li>A <em>Ring</em> (<a href="#def-ring">Definition&nbsp;<span>1.6</span></a>) <span class="math inline">\((F,+,\cdot)\)</span></li>
+<li><span class="math inline">\(F^\times = \{a \in F \mid a \neq 0\}\)</span> forms an Abelian group w.r.t multiplication <span class="math inline">\(\cdot\)</span> : <span class="math inline">\((F^\times,\cdot)\)</span></li>
+</ul>
+</div>
+<p>More specificly, <span class="math inline">\(\forall a,b,c \in F\)</span>, the following <span id="def-field-axim"><strong>field axioms</strong></span> holds</p>
+<ul>
+<li><em>Associativity</em> of <em>addition</em> and <em>multiplication</em>: <span class="math inline">\(a + (b + c) = (a + b) + c\)</span>, and <span class="math inline">\(a ⋅ (b ⋅ c) = (a ⋅ b) ⋅ c\)</span>.</li>
+<li><em>Commutativity</em> of <em>addition</em> and <em>multiplication</em>: <span class="math inline">\(a + b = b + a\)</span>, and <span class="math inline">\(a ⋅ b = b ⋅ a\)</span>.</li>
+<li><em>Additive</em> and <em>multiplicative</em> <em>identity</em>: there exist two different elements <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span> in <span class="math inline">\(F\)</span> such that <span class="math inline">\(a + 0 = a\)</span> and <span class="math inline">\(a ⋅ 1 = a\)</span>.</li>
+<li><em>Additive</em> <em>inverses</em>: for every <span class="math inline">\(a\)</span> in <span class="math inline">\(F\)</span>, there exists an element in F, denoted <span class="math inline">\(−a\)</span>, called the additive inverse of <span class="math inline">\(a\)</span>, such that <span class="math inline">\(a + (−a) = 0\)</span>.</li>
+<li><em>Multiplicative</em> <strong>inverses</strong>: for every <span class="math inline">\(a ≠ 0\)</span> in <span class="math inline">\(F\)</span>, there exists an element in <span class="math inline">\(F\)</span>, denoted by <span class="math inline">\(a^{−1}\)</span> or <span class="math inline">\(\frac{1}{a}\)</span>, called the multiplicative inverse of a, such that <span class="math inline">\(a ⋅ a^{−1} = 1\)</span>.</li>
+<li><em>Distributivity</em> of multiplication over addition: <span class="math inline">\(a ⋅ (b + c) = (a ⋅ b) + (a ⋅ c)\)</span>.</li>
+</ul>
+<div id="def-finite-field" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.9 (Finite Field (Galois Field)) </strong></span></p>
+<p>A finite set that the operators <span class="math inline">\(\cdot,+,-,/\)</span> satisfy the <a href="#def-field-axim">field axims</a>.</p>
+</div>
+<p>The <span id="def-field-order"><strong>order</strong> or <strong>size</strong></span> of a finite field is the number of its elements.</p>
+<div id="thm-finite-field-order" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1.3 (Finite Field Order (Size)) </strong></span>A finite field of <em>order</em> <span class="math inline">\(q\)</span> exists <span class="math inline">\(\iff q=p^n\)</span>, where <span class="math inline">\(p\)</span> is a prime number, <span class="math inline">\(n \in \mathbb{Z}_{\geq 1}\)</span>.</p>
+<p>The field is denoted by <span class="math inline">\(\mathbb{F}_q\)</span> or <span class="math inline">\(GF(q)\)</span>.</p>
+</div>
+<div id="thm-finite-field-char" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1.4 (Finite Field Characteristic) </strong></span></p>
+<p>For a field of <em>order</em> <span class="math inline">\(q = p^n\)</span>, the <em>characteristic</em> (<a href="#def-ring-char">Definition&nbsp;<span>1.7</span></a>) is <span class="math inline">\(p\)</span>, where <span class="math inline">\(p\)</span> is a prime number, <span class="math inline">\(n \in \mathbb{Z}_{\geq 1}\)</span></p>
+</div>
+<div id="def-cyclic-group" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.10 (Cyclic group (Monogenous group)) </strong></span>a cyclic group or <strong>monogenous group</strong> is a group that is generated by a single element. That is</p>
+<ul>
+<li>It is a set of <em>invertible</em> elements with a single associative binary operation, and it contains an element <span class="math inline">\(g\)</span> such that every other element of the group may be obtained by repeatedly applying the group operation to <span class="math inline">\(g\)</span> or its inverse.</li>
+<li>Each element can be written as a power of <span class="math inline">\(g\)</span> in <em>multiplicative</em> notation, or as a multiple of <span class="math inline">\(g\)</span> in <em>additive</em> notation.</li>
+<li>This element <span class="math inline">\(g\)</span> is called a <em>generator</em> of the group.</li>
+</ul>
+</div>
+<div id="exm-cyclic-group-mod-add" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1.1 (Integer and modular addition) </strong></span>For every positive integer <span class="math inline">\(n\)</span>, the set of <em>integers modulo <span class="math inline">\(n\)</span></em>, again with the operation of <em>addition</em>, forms a finite cyclic group, denoted <span class="math inline">\(\mathbb{Z}/n\mathbb{Z}\)</span>.</p>
+<ul>
+<li>A modular integer <span class="math inline">\(i\)</span> is a generator of this group if <span class="math inline">\(i\)</span> is relatively prime to <span class="math inline">\(n\)</span>, because these elements can generate all other elements of the group through integer addition. The number of such generators is <span class="math inline">\(\varphi(n)\)</span>, where <span class="math inline">\(\varphi\)</span> is the <em>Euler totient function</em> (<a href="#def-euler-totient-func">Definition&nbsp;<span>1.4</span></a>).</li>
+<li>Every finite cyclic group <span class="math inline">\(G\)</span> is isomorphic to <span class="math inline">\(\mathbb{Z}/n\mathbb{Z}\)</span>, where <span class="math inline">\(n = |G|\)</span> is the <em>order</em> (<a href="#def-group-order">Definition&nbsp;<span>1.2</span></a>) of the group.</li>
+</ul>
+</div>
+<div id="def-multi-group-of-field" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.11 (Multiplicative group of a field) </strong></span>The <em>multiplicative group</em> of a field <span class="math inline">\(F\)</span> is <span class="math inline">\(F^\times = F - \{0\}\)</span>, under the multiplication operation with <span class="math inline">\(\cdot\)</span>.</p>
+<p>If <span class="math inline">\(F\)</span> is finite of order <span class="math inline">\(|F| = q\)</span>, then <span class="math inline">\(F^\times\)</span> is cyclic, that is</p>
+<p><span class="math display">\[F^\times \cong C_{q-1}\]</span></p>
+<p>where <span class="math inline">\(\cong\)</span> means having the same remainder when divided by a specified integer, and <span class="math inline">\(\forall g \in F\)</span></p>
+<p><span class="math display">\[C_{q-1} = \langle g \rangle = \{g^k \mid k \in \mathbb{Z}\} \mathop{=}^{|F|=q} \{e, g, g^2, \dots , g^{q-1}\}\]</span></p>
+</div>
+<div id="def-congruence-modn" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.12 (Congruence modulo n) </strong></span>Congruence modulo <span class="math inline">\(n\)</span> is a congruence relation, meaning that it is an equivalence relation that is compatible with the operations of <span class="math inline">\(\textcolor{magenta}{\text{addition}}\)</span>, <span class="math inline">\(\textcolor{magenta}{\text{subtraction}}\)</span>, and <span class="math inline">\(\textcolor{magenta}{\text{multiplication}}\)</span>. Congruence modulo <span class="math inline">\(n\)</span> is denoted:</p>
+<p><span class="math display">\[a\equiv b \pmod n\]</span></p>
+</div>
+<div id="def-multi-group-modn" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.13 (Multiplicative group of integers modulo n) </strong></span>The integers coprime (relatively prime) to <span class="math inline">\(n\)</span> from the set <span class="math inline">\(\{0,1,\dots ,n-1\}\)</span> of <span class="math inline">\(n\)</span> non-negative integers form the group under multiplication modulo <span class="math inline">\(n\)</span></p>
+<ul>
+<li>It is denoted <span class="math inline">\(\mathbb{Z}/n\mathbb{Z}\)</span> or <span class="math inline">\(\mathbb{Z}_n\)</span></li>
+<li>The set of (<em>congruence</em> (<a href="#def-congruence-modn">Definition&nbsp;<span>1.12</span></a>) classes of) integers modulo <span class="math inline">\(n\)</span> with the operations of addition and multiplication is a <em>ring</em> (<a href="#def-ring">Definition&nbsp;<span>1.6</span></a>)(<a href="https://en.wikipedia.org/wiki/Quotient_ring#Examples">Quotient Ring</a>).</li>
+</ul>
+<p>The <em>multiplicative group of integers modulo <span class="math inline">\(n\)</span></em>, which is part of this ring, is denoted as <span class="math inline">\((\mathbb{Z}/n\mathbb{Z})^\times\)</span></p>
+</div>
+<div id="def-poly-order" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.14 (Polynomial order) </strong></span></p>
+<p>For a polynomial <span class="math inline">\(f(x)\)</span> over a field <span class="math inline">\(F\)</span>, the period (or order) of <span class="math inline">\(f(x)\)</span> is the least positive integer <span class="math inline">\(t\)</span> such that <span class="math inline">\(f(x) \mid (x^t — 1)\)</span>, denoted by <span class="math inline">\(\text{per}(f) = t\)</span>.</p>
+</div>
+</section>
+<section id="finite-field-properties" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="finite-field-properties"><span class="header-section-number">1.2</span> Finite Field Properties</h2>
+<p>Let <span class="math inline">\(F\)</span> be a finite field and <span class="math inline">\(|F| = q = p^n\)</span>, meaning <span class="math inline">\(F=\mathbb{F}_q=\mathbb{F}_{p^n}\)</span>, where <span class="math inline">\(\textcolor{magenta}{p\text{ is a prime number}}\)</span> and <span class="math inline">\(n \in \mathbb{N}_{\neq 0}\)</span>.</p>
+<p><span class="math inline">\(F^\times = F - \{0\}\)</span></p>
+<section id="the-polynomial-xq---x" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="the-polynomial-xq---x"><span class="header-section-number">1.2.1</span> The polynomial <span class="math inline">\(x^q - x\)</span></h3>
+<ul>
+<li>has all <span class="math inline">\(q\)</span> elements of <span class="math inline">\(F\)</span>.</li>
+<li>those <span class="math inline">\(q\)</span> elements are the roots of the polynomial.</li>
+</ul>
+</section>
+<section id="multiplicative-group" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="multiplicative-group"><span class="header-section-number">1.2.2</span> Multiplicative group</h3>
+<p><span class="math inline">\(F^\times\)</span> is a <em>multiplicative group</em> (<a href="#def-multi-group-of-field">Definition&nbsp;<span>1.11</span></a>).</p>
+<ul>
+<li>Its <em>generator</em> is <span class="math inline">\(g\)</span>.</li>
+<li>It is <em>cyclic</em>.</li>
+<li>The <em>primitive element</em> is <span class="math inline">\(g\)</span>, meaning</li>
+</ul>
+<p><span class="math display">\[g^q = 1 \text{ but } g^m \neq 1, \forall m \in {1,2,\dots , q-1}\]</span></p>
+<ul>
+<li><span class="math inline">\(g\)</span>’s <a href="https://en.wikipedia.org/wiki/Minimal_polynomial_(field_theory)">minimal polynomial</a> is a <a href="https://en.wikipedia.org/wiki/Primitive_polynomial_(field_theory)">primitive polynomial</a>.</li>
+<li>There will be several <span class="math inline">\(g\)</span> for <span class="math inline">\(F^\times\)</span></li>
+</ul>
+<p>About the <em>minimal polynomial</em> of <span class="math inline">\(F\)</span>, assuming <span class="math inline">\(m_\alpha(x)\)</span> is the minimal polynomial of <span class="math inline">\(\alpha \in F\)</span>,</p>
+<ul>
+<li><span class="math inline">\(m_\alpha(x)\)</span> is unique for <span class="math inline">\(\alpha\)</span>.</li>
+<li><span class="math inline">\(m_\alpha(x)\)</span> is irreducible.</li>
+<li><span class="math inline">\(\forall f(x)\)</span> over <span class="math inline">\(F\)</span>, if <span class="math inline">\(f(\alpha)=0\)</span>, then <span class="math inline">\(m_\alpha(x) \mid f(x)\)</span>.
+<ul>
+<li><span class="math inline">\(m_\alpha(x) \mid (x^{p^n}-x)\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\text{deg}(m_\alpha(x)) \leq n\)</span>.
+<ul>
+<li><span class="math inline">\(m_g(x)\)</span> being the minimal polynomial of <span class="math inline">\(g\)</span>, <span class="math inline">\(\text{deg}(m_g(x)) = n\)</span>.</li>
+</ul></li>
+<li><span class="math inline">\(m_{\alpha^p}(x) = m_\alpha(x)\)</span>.</li>
+</ul>
+<div id="def-minipoly-period" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.15 (Period of the minimal polynomials) </strong></span>According to the definition of <em>polynomial order</em> (<a href="#def-poly-order">Definition&nbsp;<span>1.14</span></a>) and <em>element order</em> (<a href="#def-group-element-order">Definition&nbsp;<span>1.3</span></a>)</p>
+<p><span class="math display">\[\text{per}(m_\alpha) = \text{ord}(\alpha)\]</span></p>
+</div>
+</section>
+<section id="characteristic" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="characteristic"><span class="header-section-number">1.2.3</span> Characteristic</h3>
+<p>The least <span class="math inline">\(i \in \mathbb{Z}\)</span> such that <span class="math inline">\(i \cdot 1 = 0\)</span> is the <em>characteristic</em> (<a href="#def-ring-char">Definition&nbsp;<span>1.7</span></a>), and <span class="math inline">\(i = p\)</span></p>
+<ul>
+<li><span class="math inline">\((x+y)^p = x^p + y^p\)</span> in <span class="math inline">\(\mathbb{F}_p\)</span></li>
+<li><span class="math inline">\(\forall m \in \mathbb{N}_{\neq 1}, (x+y)^{p_m} = x^{p_m} + y^{p_m}\)</span> in <span class="math inline">\(F\)</span>, of which the <em>characteristic</em> is <span class="math inline">\(p\)</span></li>
+</ul>
+</section>
+<section id="fermats-little-theorem-1" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="fermats-little-theorem-1"><span class="header-section-number">1.2.4</span> Fermat’s little theorem</h3>
+<p>(<a href="#thm-fermat-little">Theorem&nbsp;<span>1.2</span></a>), <span class="math inline">\(\forall x \in F\)</span></p>
+<ul>
+<li><span class="math inline">\(x^q - x = 0\)</span></li>
+<li>the polynomial <span class="math inline">\(X^q − X\)</span> factors as</li>
+</ul>
+<p><span class="math display">\[X^q-X=\prod_{a\in F}(X-a)\]</span></p>
+</section>
+<section id="finite-field-extension" class="level3" data-number="1.2.5">
+<h3 data-number="1.2.5" class="anchored" data-anchor-id="finite-field-extension"><span class="header-section-number">1.2.5</span> Finite field extension</h3>
+<ul>
+<li>is <a href="https://en.wikipedia.org/wiki/Separable_polynomial#Separable_field_extensions">saparable</a> and simple.</li>
+<li>if <span class="math inline">\(E\)</span> is a finite field and <span class="math inline">\(F\)</span> is a subfield of <span class="math inline">\(E\)</span>, i.e., <span class="math inline">\(F \subset E\)</span>, then <span class="math inline">\(E\)</span> is obtained from <span class="math inline">\(F\)</span> by adjoining a single element whose minimal polynomial is <a href="https://en.wikipedia.org/wiki/Separable_polynomial">separable</a>.
+<ul>
+<li>every element of <span class="math inline">\(E\)</span> is a root of a non-zero polynomial with <span class="math inline">\(\textcolor{orange}{\text{coefficients in }F}\)</span>.</li>
+</ul></li>
+</ul>
+<div id="exm-ext-finite-field" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1.2 (Extension from <span class="math inline">\(GF(p)\)</span> to <span class="math inline">\(GF(p^n)\)</span>) </strong></span>With an <a href="https://en.wikipedia.org/wiki/Irreducible_polynomial#Definition">irreducible polynomial</a> <span class="math inline">\(f(x)\)</span> over <span class="math inline">\(GF(p)\)</span>, and <span class="math inline">\(\alpha \in \{\alpha \mid f(\alpha)=0\}\)</span>.</p>
+<p><span class="math display">\[GF(p^n) = \{a_0 + a_1\alpha + a_2\alpha + \cdots + a_{n-1}\alpha^{n-1} \mid \alpha_i \in GF(p)\}\]</span></p>
+<p><span class="math inline">\(GF(p)\)</span> is a subfield of <span class="math inline">\(GF(p^n)\)</span></p>
+<p><span class="math display">\[GF(p) \subset GF(p^n)\]</span></p>
+<p>Every element of <span class="math inline">\(GF(p^n))\)</span> has 2 equivalent representations:</p>
+<ul>
+<li><p>Exponential representation (also <strong>Normal basis</strong>): In terms of <span class="math inline">\(GF(p^n) = \langle \alpha \rangle \cup \textcolor{magenta}{\{0\}}\)</span></p>
+<p><span class="math display">\[\alpha^k, \forall k \in \{1,2,\dots,p^n-1,\textcolor{magenta}{\infty}\}\]</span></p></li>
+<li><p>Polynomial (Vector) representation (also <strong>Polynomial basis</strong>): In terms of the extension itself</p>
+<p><span class="math display">\[a_0 + a_1\alpha + a_2\alpha + \cdots + a_{n-1}\alpha^{n-1}\]</span></p></li>
+<li><p>The polynomial representation is efficient for addition, whereas the exponential representation is good for multiplication. However, the exponential representation could be used efficiently with <em>Zech’s logrithm</em> (<a href="#def-zech-logrithm">Definition&nbsp;<span>1.16</span></a>).</p></li>
+</ul>
+</div>
+<div id="def-zech-logrithm" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1.16 (Zech’s logrithm) </strong></span><span class="math inline">\(\forall t,s \in \{0,1,\dots,p^n-1\}\)</span>, there exists a unique <span class="math inline">\(\tau(t)\)</span> called Zech’s logrithm (or <strong>trinomial table</strong>) such that</p>
+<p><span class="math display">\[1+\alpha^t=\alpha^\tau(t)\]</span></p>
+<p>Addition:</p>
+<p><span class="math display">\[\alpha^t+\alpha^s=\alpha^t(1+\alpha^{s-t})=\alpha^t\alpha^(\tau(s-t))\]</span></p>
+<p>Multiplication:</p>
+<p><span class="math display">\[\alpha^t\alpha^s=\alpha^{t+s}\]</span></p>
+<p>The <em>trinomial table</em> is generated over <span class="math inline">\(GF(p^n)\)</span> defined by <span class="math inline">\(\alpha^n+\alpha^m+1=0, 1 \leq m \leq n-1\)</span></p>
+<p>Good things about this method: - Only needs to store the <em>trinomial table</em>.</p>
+</div>
+</section>
+<section id="finite-vector-space" class="level3" data-number="1.2.6">
+<h3 data-number="1.2.6" class="anchored" data-anchor-id="finite-vector-space"><span class="header-section-number">1.2.6</span> Finite vector space</h3>
+<ul>
+<li>Any <span class="math inline">\(m\)</span> dimensional <a href="https://en.wikipedia.org/wiki/Vector_space#Definition_and_basic_properties">vector space</a> <span class="math inline">\(V\)</span> over <span class="math inline">\(F\)</span> has <span class="math inline">\(q^m = p^{nm}\)</span> elements.</li>
+<li><span class="math inline">\(|V| = q = p^n\)</span></li>
+</ul>
+</section>
+<section id="ftimes-is-cyclic" class="level3" data-number="1.2.7">
+<h3 data-number="1.2.7" class="anchored" data-anchor-id="ftimes-is-cyclic"><span class="header-section-number">1.2.7</span> <span class="math inline">\(F^\times\)</span> is cyclic</h3>
+<p><span class="math inline">\(F^\times\)</span> is a <em>cyclic group</em> (<a href="#def-cyclic-group">Definition&nbsp;<span>1.10</span></a>)(<a href="#def-multi-group-of-field">Definition&nbsp;<span>1.11</span></a>)</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./seq.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sequences</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
