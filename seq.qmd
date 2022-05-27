@@ -47,9 +47,16 @@ digraph G {
 //| fig-width: 10
 //| echo: true
 
-  graph [rankdir = TB];
+  graph [rankdir = TB, splines=line]; //nodesep=0.1
+  //graph [rankdir = TB, penwidth=0, labelloc="b"];
 
   node [shape = record];
-    reg [label = <a<sub>0</sub> | a<sup>1</sup> | a^2^>]
+    reg [label = "<a6>a6 | a5 | <a4>a4 | a3 | a2 | a1 | <a0>a0"];
+    add [shape = circle, label = "⊕", fontsize = 28, fixedsize = true, width=0.3];
+    mul [shape = circle, label = "⊗", fontsize = 28, fixedsize = true, width=0.3];
+    reg:a4 -> mul;
+    reg:a0 -> mul;
+    reg:a6 -> add;
+    reg:a0 -> add;
 }
 ```
