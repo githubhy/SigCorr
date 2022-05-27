@@ -28,6 +28,8 @@ jobs:
       - name: Deploy 🚀
         # only deploy when push to main
         if: github.event_name != 'pull_request'
+        # Beware of the action permisstion as stated here:
+        # https://github.com/JamesIves/github-pages-deploy-action#permission-settings-%EF%B8%8F
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           # The branch the action should deploy to.
