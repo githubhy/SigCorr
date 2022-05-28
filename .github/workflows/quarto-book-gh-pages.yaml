@@ -25,7 +25,7 @@ jobs:
         # with:
         #   r-version: '3.5.3' # The R version to download (if necessary) and use.
       - name: Install R packages
-        run: Rscript -e 'install.packages(c("numbers"))
+        run: Rscript -e 'install.packages(c("numbers"))'
 
       - name: Render book to all format
         # Add any command line argument needed
