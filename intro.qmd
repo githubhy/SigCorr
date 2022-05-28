@@ -84,14 +84,14 @@ Fore more details, such as to prove that every element of $G$ is invertible, see
 ### Euler's totient function
 Euler's totient function counts the positive integers up to a given integer $n$ that are relatively prime to $n$. It is written as as $\varphi(n)$.
 
-- The number of integers k in the range $1 ≤ k ≤ n$ for which the greatest common divisor $\text{gcd}(n,k)$ is equal to 1.
+- $\varphi(n)$ = the number of integers k in the range $1 ≤ k ≤ n$ for which the greatest common divisor $\text{gcd}(n,k)$ is equal to 1.
 
 ::: {#fig-euler-phi layout-ncol=2}
 ![First 1000 values](images/euler-phi-1000.png){#fig-euler-phi-1000}
 
 ![First 100 values](images/euler-phi-100.png){#fig-euler-phi-100}
 
-Euler's totient funtion values
+Euler's totient function values
 :::
 :::
 
@@ -118,7 +118,7 @@ Rings are algebraic structures that generalize fields such that
 - Multiplication needs *not* to be *commutative*
 - *Multiplicative inverses* need *not* exist.
 
-Formally, a set $R$, two operators addtion $+$ and multiplication $\cdot$ forms $(R,+,\cdot)$ such that
+Formally, a set $R$, two operators addition $+$ and multiplication $\cdot$ forms $(R,+,\cdot)$ such that
 
 - R is an *Abelian group* (@def-abelian-group) w.r.t $+$.
 - *Associativity*: $\forall a,b,c \in R$
@@ -148,10 +148,10 @@ Two versions:
 A field consists of
 
 - A *Ring* (@def-ring) $(F,+,\cdot)$
-- $F^\times = \{a \in F \mid a \neq 0\}$ forms an Abelian group w.r.t multiplication $\cdot$ : $(F^\times,\cdot)$
+- $F^\times = \{a \in F \mid a \neq 0\}$ forms an Abelian group (@def-abelian-group) w.r.t multiplication $\cdot$ : $(F^\times,\cdot)$
 :::
 
-More specificly, $\forall a,b,c \in F$, the following [**field axioms**]{#def-field-axim} holds
+More specifically, $\forall a,b,c \in F$, the following [**field axioms**]{#def-field-axiom} holds
 
 - *Associativity* of *addition* and *multiplication*: $a + (b + c) = (a + b) + c$, and $a ⋅ (b ⋅ c) = (a ⋅ b) ⋅ c$.
 - *Commutativity* of *addition* and *multiplication*: $a + b = b + a$, and $a ⋅ b = b ⋅ a$.
@@ -163,7 +163,7 @@ More specificly, $\forall a,b,c \in F$, the following [**field axioms**]{#def-fi
 
 ::: {#def-finite-field}
 ### Finite Field (Galois Field)
-A finite set that the operators $\cdot,+,-,/$ satisfy the [field axims](#def-field-axim).
+A finite set that the operators $\cdot,+,-,/$ satisfy the [field axioms](#def-field-axiom).
 :::
 
 The [**order** or **size**]{#def-field-order} of a finite field is the number of its elements.
@@ -251,7 +251,7 @@ $F^\times = F - \{0\}$
 - has all $q$ elements of $F$.
 - those $q$ elements are the roots of the polynomial.
 
-### Multiplicative group
+### Multiplicative group {#sec-multiplicative-group}
 $F^\times$ is a *multiplicative group* (@def-multi-group-of-field).
 
 - Its *generator* is $g$.
@@ -278,11 +278,11 @@ $$\text{per}(m_\alpha) = \text{ord}(\alpha)$$
 
 :::
 
-### Characteristic
+### Characteristic {#sec-characteristic}
 The least $i \in \mathbb{Z}$ such that $i \cdot 1 = 0$ is the *characteristic* (@def-ring-char), and $i = p$
 
 + $(x+y)^p = x^p + y^p$ in $\mathbb{F}_p$
-+ $\forall m \in \mathbb{N}_{\neq 1}, (x+y)^{p_m} = x^{p_m} + y^{p_m}$ in $F$, of which the *characteristic* is $p$
++ $\forall m \in \mathbb{N}_{\neq 1}, (x+y)^{p^m} = x^{p^m} + y^{p^m}$ in $F$, of which the *characteristic* is $p$
 
 ### Fermat's little theorem
 (@thm-fermat-little), $\forall x \in F$
@@ -293,7 +293,7 @@ $$X^q-X=\prod_{a\in F}(X-a)$$
 
 ### Finite field extension
 
-+ is [saparable](https://en.wikipedia.org/wiki/Separable_polynomial#Separable_field_extensions) and simple.
++ is [separable](https://en.wikipedia.org/wiki/Separable_polynomial#Separable_field_extensions) and simple.
 + if $E$ is a finite field and $F$ is a subfield of $E$, i.e., $F \subset E$, then $E$ is obtained from $F$ by adjoining a single element whose minimal polynomial is [separable](https://en.wikipedia.org/wiki/Separable_polynomial).
     - every element of $E$ is a root of a non-zero polynomial with $\textcolor{orange}{\text{coefficients in }F}$.
 
@@ -311,11 +311,11 @@ Every element of $GF(p^n))$ has 2 equivalent representations:
     $$\alpha^k, \forall k \in \{1,2,\dots,p^n-1,\textcolor{magenta}{\infty}\}$$
 - Polynomial (Vector) representation (also **Polynomial basis**): In terms of the extension itself
     $$a_0 + a_1\alpha + a_2\alpha + \cdots + a_{n-1}\alpha^{n-1}$$
-- The polynomial representation is efficient for addition, whereas the exponential representation is good for multiplication. However, the exponential representation could be used efficiently with *Zech's logrithm* (@def-zech-logrithm).
+- The polynomial representation is efficient for addition, whereas the exponential representation is good for multiplication. However, the exponential representation could be used efficiently with *Zech's logarithm* (@def-zech-logarithm).
 :::
 
-::: {#def-zech-logrithm}
-#### Zech's logrithm
+::: {#def-zech-logarithm}
+#### Zech's logarithm
 $\forall t,s \in \{0,1,\dots,p^n-1\}$, there exists a unique $\tau(t)$ called Zech's logrithm (or **trinomial table**) such that
 $$1+\alpha^t=\alpha^\tau(t)$$
 Addition:
@@ -335,4 +335,54 @@ Good things about this method:
 + $|V| = q = p^n$
 
 ### $F^\times$ is cyclic
-$F^\times$ is a *cyclic group* (@def-cyclic-group)(@def-multi-group-of-field)
+$F^\times$ is a *cyclic group* (@def-cyclic-group) with the multiplication operator $\cdot$ (@def-multi-group-of-field)
+
+
+## Primitive polynomial
+
+::: {#def-prim-poly}
+### Primitive polynomial
+The minimal polynomial of a primitive element of the finite field $GF(q^m) = GF(p^{mn})$
+:::
+
+### Properties
+
+1. All primitive polynomials are also irreducible
+    + Because all minimal polynomials are irreducible, .
+
+2. Over $GF(2)$, $x + 1$ is a primitive polynomial and all other primitive polynomials have an $\textcolor{magenta}{\text{odd}}$ number of terms
+    + Because any polynomial $mod 2$ with an even number of terms is divisible by $x + 1$ (it has $1$ as a root).
+
+      ::: {.proof}
+      Without loss of generality, suppose we have $x^n+x^k+x^j+1, 1 \leq j < k < n$, this polynomial can be factored over $GF(2)$ as
+      $$x^k(x^{n-k} + 1) + (x^j + 1)$$
+      So any number of odd terms can be factored to the weighted sum of $x^d+1, \forall d \geq 1$.
+    
+      In $GF(2)$, we have
+      $$x^m+1=(x+1)(\sum_{i=0}^{m-1}x^i), \forall m>1$$
+      :::
+
+3. Over $GF(q)=GF(p^m)$ there are exactly $\frac{\varphi(q − 1)}{m} = \frac{\varphi(p^m − 1)}{m}$ primitive polynomials of degree $m$, where $\varphi$ is Euler's totient function (@def-euler-totient-func). [Wolfram](https://mathworld.wolfram.com/PrimitivePolynomial.html)
+
+```{r}
+#| fig-cap: "Number of primitive polynomials" 
+
+library(numbers)
+p <- 2;
+m <- 2:7;
+v <- sapply(p^m-1, eulersPhi) / m;
+# plot reference:
+# 1. https://trinkerrstuff.wordpress.com/2018/03/15/2246/
+# 2. https://www.learnbyexample.org/r-plot-function/
+plot(m, v, type="p", pch=21, col="blue", bg="lightblue",
+                xlab=bquote("m"), ylab=bquote(phi(p^m-1)/m),
+                main="Number of primitive polynomials of degree n")
+text(m, v, label=as.character(v), cex=0.7, pos=4, col="blue")
+```
+
+![Primitive polynomial from $GF(2^4)$ to $GF(2^7)$](images/primitive_polynomials_GF2_4-GF2_7.png){#fig-prime-poly}
+
+4. A primitive polynomial of degree $m$ has $m$ different roots in $GF(p^m)$, which all have order $p^m − 1$. This means that, if $α$ is such a root, then $α^{p^m−1} = 1$ and $α^i ≠ 1$ for $0 < i < p^m − 1$. Ref.(@sec-multiplicative-group)
+
+5. The primitive polynomial $F(x)$ of degree $m$ of a primitive element $α$ in $GF(p^m)$ has explicit form
+$$F(x) = (x − \alpha)(x − \alpha^p)(x − \alpha^{p^2}) \cdots (x − \alpha^{p^{m−1}})$$.
