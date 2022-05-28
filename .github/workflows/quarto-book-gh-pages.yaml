@@ -25,7 +25,8 @@ jobs:
         # with:
         #   r-version: '3.5.3' # The R version to download (if necessary) and use.
       - name: Install R packages
-        run: Rscript -e 'install.packages(c("numbers"))'
+        # Install 'rmarkdown' package as noted here: https://quarto.org/docs/computations/r.html#installation
+        run: Rscript -e 'install.packages(c("rmarkdown","numbers"))'
 
       - name: Render book to all format
         # Add any command line argument needed
